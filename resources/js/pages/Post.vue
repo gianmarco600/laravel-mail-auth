@@ -6,6 +6,10 @@
                 <div class="card bg-dark text-white mt-5" >
                     <div class="card-body">
                         <h5 class="card-title">{{post.title}}</h5>
+                        <div v-if="post.cover">
+                            <img :src="post.cover" :alt="post.title">
+                        </div>
+                        
                         <h6 class="card-subtitle mb-2 text-muted"> {{ cut(post.description, 80) }} </h6>
                         <p class="card-text">{{ prepareDate(post.created_at) }}</p>
                         

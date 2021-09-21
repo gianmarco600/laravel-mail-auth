@@ -17,6 +17,12 @@ class PostController extends Controller
     {
         $posts = Post::paginate(4);
 
+        $posts->each(function ($post) {
+            if ($post->cover){
+                $post->cover = url('storage/' . $post->cover);
+            }
+        });
+
         return response()->json([
             'success' => true,
             'results' => $posts
@@ -54,6 +60,9 @@ class PostController extends Controller
     {
         $post = Post::where('slug' ,$slug)->with(['category', 'tags'])->first();
         if($post){
+            if($post->cover){
+                $post->cover = url('storage/' . $post->cover);
+            }
             return response()->json([
             'success' => true,
             'results' => $post

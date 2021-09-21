@@ -11,10 +11,16 @@
             <div class="card-body">
                 <h5 class="card-title">slug:  {{$post->slug}}</h5>
                 <h6 class="card-text">descrizione:  {{$post->description}}</h6>
-                @if ($post->category->id)
+                @if ($post->category)
                     <h4>categoria:  {{ $post->category->name }}</h4>
                 @endif
                 <h3>Tags:</h3>
+                @if ($post->cover)
+                
+                <img src="{{asset('storage/' . $post->cover)}}" alt="{{$post->title}}">  
+                
+                @endif
+                
                 {{-- @if ($post->tags)
                     @foreach ($post->tags as $tag)
                         <span class="badge badge-info" >{{ $tag->name }}</span>

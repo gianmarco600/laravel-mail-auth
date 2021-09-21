@@ -2465,6 +2465,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Details',
@@ -2526,6 +2530,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -38604,6 +38612,14 @@ var render = function() {
                   ])
                 : _vm._e(),
               _vm._v(" "),
+              _vm.post.cover
+                ? _c("div", [
+                    _c("img", {
+                      attrs: { src: _vm.post.cover, alt: "post.title" }
+                    })
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
               _vm.post.tags
                 ? _c("div", [_c("Tag", { attrs: { tags: _vm.post.tags } })], 1)
                 : _vm._e(),
@@ -38698,6 +38714,12 @@ var render = function() {
                 _c("h5", { staticClass: "card-title" }, [
                   _vm._v(_vm._s(post.title))
                 ]),
+                _vm._v(" "),
+                post.cover
+                  ? _c("div", [
+                      _c("img", { attrs: { src: post.cover, alt: post.title } })
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("h6", { staticClass: "card-subtitle mb-2 text-muted" }, [
                   _vm._v(" " + _vm._s(_vm.cut(post.description, 80)) + " ")
@@ -54978,7 +55000,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! A:\boolean\classe#36\mamp_public\php-laravel-odd-list\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! A:\boolean\classe#36\mamp_public\laravel-mail-auth\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

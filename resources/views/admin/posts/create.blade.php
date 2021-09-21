@@ -13,7 +13,7 @@
 @endif --}}
 
 
-<form action="{{route("admin.posts.store")}}" method="POST">
+<form action="{{route("admin.posts.store")}}" method="POST" enctype="multipart/form-data">
 
     @csrf
 {{-- titolo------------------------------------- --}}
@@ -52,11 +52,23 @@
             <div class="alert alert-danger mt-3">{{ $message }}</div>
         @enderror
     </div>
+
+    {{-- img --}}
+    <div class="mb-3">
+        <label for="img" class="form-label">Immagine copertina</label>
+        <input type="file" name="image" id="img" class="form-control-file
+        @error('image') 
+          is-invalid 
+        @enderror">
+        @error('image')
+          <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+    </div>
 {{-- descrizione---------------------------------------------------- --}}
 
     <div class="my-4">
         <label for="description" class="form-label">descrizione:</label>
-        <textarea id="description" name="description" class="form-control
+        <textarea id="description" name="description" class="form-control-file
         @error('description')
             is-invalid
         @enderror"

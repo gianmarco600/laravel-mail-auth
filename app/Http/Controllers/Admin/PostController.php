@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -20,7 +21,8 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $posts = Post::all();
-        return view('admin.posts.index', compact('posts', 'categories'));
+        $tags = Tag::all();
+        return view('admin.posts.index', compact('posts', 'categories', 'tags'));
     }
 
     /**
@@ -46,9 +48,10 @@ class PostController extends Controller
         // validazione dei dati
 
         $request->validate([
-            'title' => 'required|max:60',
+            'title' => 'required|max:255',
             'description' => 'required',
-            'category_id' =>'nullable|exists:categories,id'
+            'category_id' =>'nullable|exists:categories,id',
+            'image' => 'nullable|mimes:png,jpg'
         ]);
 
 
@@ -69,7 +72,13 @@ class PostController extends Controller
         }
         $new_Post->slug = $slug;
         
-
+        // prima di fare il fill controllo se esiste img
+        if(array_key_exists('image', $newPost)){
+            // salvo l'immagine e ne recupero il percorso
+            $cover_path = Storage::put('covers', $newPost['image']);
+            // salvo il tutto nella tabella posts
+            $newPost['cover'] = $cover_path;
+        }
         
         $new_Post->fill($newPost);
 
@@ -125,7 +134,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required|max:60',
             'description' => 'required',
-            'category_id' =>'nullable|exists:categories,id'
+            'category_id' =>'nullable|exists:categories,id',
+            'image' => 'nullable|mimes:png,jpg'
             
         ]);
         $editPost = $request->all();
@@ -149,6 +159,18 @@ class PostController extends Controller
             $editPost['slug'] = $slug;
 
         }
+        
+        // se essiste l'img
+        if(array_key_exists('image', $editPost)){
+            // salvo l'immagine e ne recupero il percorso
+            $cover_path = Storage::put('covers', $editPost['image']);
+            // salvo il tutto nella tabella posts
+            Storage::delete($post->cover);
+            $editPost['cover'] = $cover_path;
+
+        }
+
+
        $post->update($editPost);
        
        if(array_key_exists('tags' ,$editPost)){
@@ -169,7 +191,7 @@ class PostController extends Controller
         // posso anche ometterlo se la relazione onDelete e' cascade
         $post->tags()->detach();    
         
-
+        Storage::delete($post->cover);
         $post->delete();
         
 

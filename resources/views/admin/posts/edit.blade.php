@@ -10,7 +10,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
+    <form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
 
     @method('PUT')
@@ -26,7 +26,20 @@
             <div class="alert alert-danger mt-3">{{ $message }}</div>
         @enderror
     </div>
-
+    @if ($post->cover)
+        <img src="{{ asset('storage/' . $post->cover) }}" alt="">
+    @endif
+{{-- img --}}
+<div class="mb-3">
+    <label for="img" class="form-label">Immagine copertina</label>
+    <input type="file" name="image" id="img" class="form-control-file
+    @error('image') 
+      is-invalid 
+    @enderror">
+    @error('image')
+      <div class="alert alert-danger">{{ $message }}</div>
+    @enderror
+</div>
 {{-- categorie---------------------------------------------- --}}
 
     <div class="my-4">

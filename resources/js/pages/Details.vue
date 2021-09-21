@@ -9,9 +9,13 @@
                         <div v-if="post.category">
                             <h2>{{ post.category.name }}</h2>
                         </div>
+                        <div v-if="post.cover">
+                            <img :src="post.cover" alt="post.title">
+                        </div>
                         <div v-if="post.tags">
                             <Tag :tags="post.tags"/>
                         </div>
+                        
                         <!-- <div v-if="post.tags" >
                             <span  class="m-1 badge badge-success" v-for="(tag, index) in post.tags" :key="index">{{ tag.name }}</span>
                         </div> -->
